@@ -1,0 +1,49 @@
+// src/app/rides/[id]/page.tsx
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+
+type Ride = {
+  id: string
+  origin: string
+  destination: string
+  date: string
+  seats: number
+  acceptedBy?: string | null
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  return { title: `Ride ${params.id}` }
+}
+
+export default async function RideDetailPage({ params }: { params: { id: string } }) {
+  // Tenta fetch absoluto (funciona em produção)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/listRides`, { cache: 'no-store' })
+  let data: Ride[] = []
+
+  try {
+    if (!res.ok) throw new Error('api error')
+    data = await res.json()
+  } catch {
+    // Fallback para fetch relativo (funciona em dev)
+    const res2 = await fetch('/api/listRides', { cache: 'no-store' })
+    if (!res2.ok) throw new Error('Erro a buscar rides')
+    data = await res2.json()
+  }
+
+  const ride = data.find(r => r.id === params.id)
+  if (!ride) return notFound()
+
+  return (
+    <section>
+      <h1 className="text-2xl font-semibold">
+        {ride.origin} → {ride.destination}
+      </h1>
+
+      <div className="mt-4 space-y-2">
+        <p><strong>Data:</strong> {new Date(ride.date).toLocaleString()}</p>
+        <p><strong>Lugares:</strong> {ride.seats}</p>
+        <p><strong>Aceite por:</strong> {ride.acceptedBy ?? 'Ainda ninguém'}</p>
+      </div>
+    </section>
+  )
+}
