@@ -3,7 +3,10 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 // Carregamos o componente RideForm como client component
-const RideForm = dynamic(() => import('@/components/RideForm'), { ssr: false })
+const RideForm = dynamic(() => import('../../../components/RideForm'), {
+  ssr: false
+});
+
 
 export default function NewRidePage() {
   return (
