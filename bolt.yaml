@@ -1,0 +1,45 @@
+name: LevaCasa
+description: >
+  Aplicação LevaCasa — serviço onde motoristas levam o carro do cliente
+  para casa em segurança. O objetivo é permitir login, registo, criação
+  e aceitação de viagens, listagem de viagens e perfis de utilizadores.
+
+stack: 
+  - nextjs
+  - supabase
+  - tailwindcss
+
+theme:
+  colors:
+    primary: "#00ADEF"
+    secondary: "#003B5C"
+    background: "#FFFFFF"
+    text: "#000000"
+  logo: "./public/icon.svg"
+
+routes:
+  - path: "/"
+    page: home
+  - path: "/login"
+    page: login
+  - path: "/register"
+    page: register
+  - path: "/request"
+    page: requestRide
+  - path: "/driver"
+    page: driverDashboard
+  - path: "/api/createRide"
+    server: createRideApi
+  - path: "/api/acceptRide"
+    server: acceptRideApi
+  - path: "/api/listRides"
+    server: listRidesApi
+  - path: "/api/getProfileByEmail"
+    server: getProfileByEmailApi
+
+permissions:
+  supabase:
+    tables:
+      - rides
+      - profiles
+
