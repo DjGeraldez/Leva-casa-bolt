@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import '../styles/globals.css';
+import './globals.css';
 import Header from '../components/Header';
 import type { ReactNode } from 'react';
 
