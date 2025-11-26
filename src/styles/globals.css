@@ -1,0 +1,13 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cor principal do teu design — muda se tiveres outra cor */
+:root { --brand-500: #0b74de; }
+
+.bg-brand-500 { background-color: var(--brand-500); }
+.text-brand-500 { color: var(--brand-500); }
+
+/* Pequenos ajustes para a app */
+body { background-color: #f8fafc; }
